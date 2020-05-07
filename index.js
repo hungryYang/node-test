@@ -4,9 +4,9 @@ const homeDir = process.env.HOME || process.env.USERPROFILE
 const dbPath = path.join(homeDir, 'todo.txt')
 const inquirer = require('inquirer')
 
-function readFile() {
+function readFile(filePath) {
     return new Promise((resolve, reject) => {
-        fs.readFile(dbPath, { flag: 'a+' }, (error, data) => {
+        fs.readFile(filePath, { flag: 'a+' }, (error, data) => {
             if (error) {
                 reject(error)
             }
@@ -17,14 +17,15 @@ function readFile() {
             } else {
                 list = JSON.parse(data.toString())
             }
+
             resolve(list)
         })
     })
 }
 
-function writeFile(data) {
+function writeFile(filePath, data) {
     return new Promise((resolve, reject) => {
-        fs.writeFile(dbPath, JSON.stringify(data), (err) => {
+        fs.writeFile(filePath, JSON.stringify(data), (err) => {
             if (err) {
                 reject(err)
             }
@@ -41,12 +42,12 @@ function updateTitle(list, index) {
         default: list[index].title
     }).then(answer => {
         list[index].taskTitle = answer.title
-        writeFile(list)
+        writeFile(dbPath, list)
     })
 }
 
 async function showAllTask () {
-    const list = await readFile()
+    const list = await readFile(dbPath)
     inquirer
         .prompt({
             type: 'list',
@@ -81,11 +82,11 @@ async function showAllTask () {
                         switch (answers.index) {
                             case 'markAsDone':
                                 list[index].done = true
-                                await writeFile(list)
+                                await writeFile(dbPath, list)
                                 break
                             case 'delete':
                                 list.splice(index, 1)
-                                await writeFile(list)
+                                await writeFile(dbPath, list)
                                 break
                             case 'changeTitle':
                                 updateTitle(list, index)

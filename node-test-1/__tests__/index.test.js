@@ -16,6 +16,6 @@ describe('test', () => {
         })
         const list = [{title: 'test1', done: true}, {title: 'test2', done: true}]
         await writeFile('/yyy', list)
-        expect(fakeFile).toBe(JSON.stringify(list))
+        expect(fakeFile).toStrictEqual(JSON.stringify(list))
     })
 })

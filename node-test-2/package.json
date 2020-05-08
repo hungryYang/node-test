@@ -1,0 +1,13 @@
+{
+  "name": "node-test-2",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "ts-node-dev --respawn index.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^13.13.5",
+    "ts-node-dev": "^1.0.0-pre.44"
+  }
+}

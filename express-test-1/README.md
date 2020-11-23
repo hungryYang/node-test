@@ -67,7 +67,6 @@
 
     可以根据同一路径不同的request headers来响应不同的内容
     
-
 ## Router 
 
     路由语法糖，用法见`/routes`文件夹以及app中的`app.get('/users/:userId/books/:bookId', User)`
